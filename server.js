@@ -62,7 +62,7 @@ app.post('/motivate', async (req, res) => {
         // Combine the AI message and the quote
         const message = `${aiMessage}\n\n"${quote}"`;
 
-        // Send the message back to the client
+        // Send the message back to the client as a JSON object
         res.json({ message });
     } catch (error) {
         console.error('Error:', error);
@@ -87,7 +87,6 @@ async function fetchZenQuote() {
 app.get('*', (req, res) => {
     res.redirect('https://front-end-chat.onrender.com/');
 });
-
 
 // Start the server
 app.listen(port, () => {

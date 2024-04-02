@@ -23,7 +23,7 @@ const model = new ChatOpenAI({
 const promptTemplate = new PromptTemplate();
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '.')));
+app.use(express.static(__dirname)); // Serve static files from the root directory
 
 app.post('/motivate', async (req, res) => {
     try {
@@ -63,7 +63,6 @@ app.post('/motivate', async (req, res) => {
     }
 });
 
-
 // Function to fetch inspirational quote from ZenQuotes API
 async function fetchZenQuote() {
     try {
@@ -75,11 +74,6 @@ async function fetchZenQuote() {
         return '';
     }
 }
-
-// Handle other GET requests by serving the HTML file
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/index.html'));
-});
 
 // Start the server
 app.listen(port, () => {

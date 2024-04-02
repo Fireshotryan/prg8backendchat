@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors'; // Import the cors middleware
 import { ChatOpenAI } from "@langchain/openai";
 import path from 'path';
 import fetch from 'node-fetch';
@@ -9,6 +10,13 @@ import PromptTemplate from './prompttemplate.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Enable CORS
+app.use(cors({
+  origin: 'https://fireshotryan.github.io', // Replace with your GitHub Pages URL
+  methods: ['GET', 'POST'],
+  credentials: true // If you're using cookies or sessions
+}));
 
 // Initialize the ChatOpenAI model
 const model = new ChatOpenAI({

@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000;
 
 // Enable CORS
 app.use(cors({
-  origin: 'https://fireshotryan.github.io', // Replace with your GitHub Pages URL
+  origin: 'https://front-end-chat.onrender.com', // Allow requests from your front-end URL
   methods: ['GET', 'POST'],
   credentials: true // If you're using cookies or sessions
 }));
@@ -83,9 +83,9 @@ async function fetchZenQuote() {
     }
 }
 
-// Handle other GET requests by redirecting to the GitHub Pages URL
+// Handle other GET requests by redirecting to the front-end URL
 app.get('*', (req, res) => {
-    res.redirect('https://fireshotryan.github.io/front-end-chat/');
+    res.redirect('https://front-end-chat.onrender.com/');
 });
 
 

@@ -22,6 +22,9 @@ const model = new ChatOpenAI({
 // Create an instance of the PromptTemplate class
 const promptTemplate = new PromptTemplate();
 
+// Enable CORS
+app.use(cors());
+
 app.use(express.json());
 app.use(express.static(__dirname));
 

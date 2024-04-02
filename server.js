@@ -85,7 +85,7 @@ async function fetchZenQuote() {
 
 // Handle other GET requests by serving the HTML file
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Start the server

@@ -30,7 +30,7 @@ const model = new ChatOpenAI({
 const promptTemplate = new PromptTemplate();
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.resolve(__dirname))); // Serve files from the root directory
 
 app.post('/motivate', async (req, res) => {
     try {

@@ -23,7 +23,7 @@ const model = new ChatOpenAI({
 const promptTemplate = new PromptTemplate();
 
 app.use(express.json());
-app.use(express.static(__dirname)); // Serve static files from the root directory
+app.use(express.static(__dirname));
 
 app.post('/motivate', async (req, res) => {
     try {

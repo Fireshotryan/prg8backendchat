@@ -5,7 +5,8 @@
     "description": "",
     "main": "server.js",
     "scripts": {
-        "dev": "node --env-file=.env --watch server.js"
+        "dev": "node --env-file=.env --watch server.js",
+        "build": "npm install && echo 'Build complete.'"
     },
     "author": "Ryan de Man",
     "license": "ISC",

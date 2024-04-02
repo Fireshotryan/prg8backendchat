@@ -83,10 +83,11 @@ async function fetchZenQuote() {
     }
 }
 
-// Handle other GET requests by serving the HTML file
+// Handle other GET requests by redirecting to the GitHub Pages URL
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.redirect('https://fireshotryan.github.io/front-end-chat/');
 });
+
 
 // Start the server
 app.listen(port, () => {

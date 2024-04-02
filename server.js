@@ -75,9 +75,8 @@ async function fetchZenQuote() {
     }
 }
 
-// Serve index.html for the root URL
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/index.html'));
+    res.redirect('https://front-end-chat.onrender.com/');
 });
 
 // Start the server

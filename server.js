@@ -46,35 +46,50 @@ app.post('/motivate', async (req, res) => {
         const motivationalContext = ' motivational'; // Add more specific context if needed
         const biasedPrompt = `${engineeredPrompt}${motivationalContext}`;
 
-        // Send the prompt to the OpenAI model to get a motivational response
-        const response = await model.invoke(biasedPrompt);
+        // Fetch a relevant quote from thedogapi based on the input prompt
+        const dogImages = await fetchDogImages(prompt);
+        console.log('Dog images from the API:', dogImages);
+
+        // Let's compose a message combining AI response and dog images
+        let composedMessage = biasedPrompt; // Start with the biased prompt
+        if (dogImages.length > 0) {
+            // Add a fun message when dog images are available
+            composedMessage += "\n\nHere's a happy dog to cheer you up!";
+        }
+
+        // Send the composed message to the OpenAI model to get a response
+        const response = await model.invoke(composedMessage);
         console.log('Response from AI:', response);
         const aiMessage = response.content;
 
-        // Fetch a relevant quote from ZenQuotes API based on the input prompt
-        const quote = await fetchZenQuote(prompt);
-        console.log('Quote from ZenQuotes API:', quote);
+        // Construct the latest response object
+        const latestResponse = { content: aiMessage }; // Adjust as needed
 
-        // Combine the AI message and the quote
-        const message = `${aiMessage}\n\n"${quote}"`;
+        // Send the AI message, the dog images, and the latest response back to the client
+        res.json({ aiMessage: aiMessage, dogImages: dogImages, latestResponse: latestResponse });
 
-        // Send the message back to the client
-        res.json({ message });
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
-// Function to fetch inspirational quote from ZenQuotes API
-async function fetchZenQuote() {
+
+
+
+// Function to fetch dog images from thedogapi
+async function fetchDogImages(prompt) {
     try {
-        const response = await fetch('https://zenquotes.io/api/random');
+        const response = await fetch(`https://api.thedogapi.com/v1/images/search?q=${prompt}`, {
+            headers: {
+                'x-api-key': process.env.API_KEY // Use your API key here
+            }
+        });
         const data = await response.json();
-        return data[0].q;
+        return data.map(image => image.url);
     } catch (error) {
-        console.error('Error fetching quote from ZenQuotes API:', error);
-        return '';
+        console.error('Error fetching dog images:', error);
+        return [];
     }
 }
 
